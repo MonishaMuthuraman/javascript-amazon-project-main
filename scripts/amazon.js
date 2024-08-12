@@ -1,4 +1,6 @@
 import {cart} from '../data/cart.js';
+import { products} from '../data/products.js';
+
 let allProducts = ""; 
 const timerList = {};
 products.forEach((product)=>{
