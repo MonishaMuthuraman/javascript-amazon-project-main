@@ -59,7 +59,7 @@ products.forEach((product)=>{
 });
 
 document.querySelector('.products-grid').innerHTML = allProducts;
-
+updateCartQuantity();
 
 function updateCartQuantity(){
   let totalQuantity = 0;
