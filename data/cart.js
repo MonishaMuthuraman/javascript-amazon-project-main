@@ -11,7 +11,7 @@
 // ];
 
 export let cart = JSON.parse(localStorage.getItem('cart'));
-console.log(cart);
+
 
 export function addToCart(productId){
     const timerList = {};
