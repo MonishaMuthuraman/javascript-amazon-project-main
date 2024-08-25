@@ -3,11 +3,15 @@ import { products } from "../data/products.js";
 import {formatCurrency} from "./utils/money.js";
 
 
-
+const currentDate = dayjs();
+const fastdeliveryDate = currentDate.add(7,'day').format("dddd, MMMM D");
+const mediumdeliveryDate = currentDate.add(3,'day').format("dddd, MMMM D");
+const slowdeliveryDate = currentDate.add(1,'day').format("dddd, MMMM D");
+//console.log(dateFormat);
 let allCartElements=``;
 
 cart.forEach((cartItem) => {
-    console.log(cartItem);
+    //console.log(cartItem);
     const productId = cartItem.productId;
     var productDetails;
     products.forEach((product) => {
@@ -57,7 +61,7 @@ cart.forEach((cartItem) => {
             name="delivery-option-${productId}">
             <div>
             <div class="delivery-option-date">
-                Tuesday, June 21
+                ${fastdeliveryDate}
             </div>
             <div class="delivery-option-price">
                 FREE Shipping
@@ -70,7 +74,7 @@ cart.forEach((cartItem) => {
             name="delivery-option-${productId}">
             <div>
             <div class="delivery-option-date">
-                Wednesday, June 15
+                ${mediumdeliveryDate}
             </div>
             <div class="delivery-option-price">
                 $4.99 - Shipping
@@ -83,7 +87,7 @@ cart.forEach((cartItem) => {
             name="delivery-option-${productId}">
             <div>
             <div class="delivery-option-date">
-                Monday, June 13
+                ${slowdeliveryDate}
             </div>
             <div class="delivery-option-price">
                 $9.99 - Shipping
