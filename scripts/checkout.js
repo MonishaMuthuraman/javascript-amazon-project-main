@@ -1,7 +1,7 @@
 import { cart,removeItem,calculateCartQuantity, updateQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
-import {formatCurrency} from "./utils/money.js";
-
+import formatCurrency from "./utils/money.js";
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 
 const currentDate = dayjs();
 const fastdeliveryDate = currentDate.add(7,'day').format("dddd, MMMM D");
@@ -9,6 +9,8 @@ const mediumdeliveryDate = currentDate.add(3,'day').format("dddd, MMMM D");
 const slowdeliveryDate = currentDate.add(1,'day').format("dddd, MMMM D");
 //console.log(dateFormat);
 let allCartElements=``;
+
+
 
 cart.forEach((cartItem) => {
     //console.log(cartItem);
