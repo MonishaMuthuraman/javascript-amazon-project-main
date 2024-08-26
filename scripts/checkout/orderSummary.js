@@ -10,7 +10,6 @@ import { paymentSummary } from "./paymentSummary.js";
 // const slowdeliveryDate = currentDate.add(1,'day').format("dddd, MMMM D");
 // //console.log(dateFormat);
 export function rendercheckoutHtml(){
-let Quantity; 
 let allCartElements=``;
 var deliveryDate;
 cart.forEach((cartItem) => {
