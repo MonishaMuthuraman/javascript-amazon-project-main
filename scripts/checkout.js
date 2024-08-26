@@ -2,20 +2,26 @@ import { cart,removeItem,calculateCartQuantity, updateQuantity } from "../data/c
 import { products } from "../data/products.js";
 import formatCurrency from "./utils/money.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
+import {checkoutOptions} from "./checkoutOption.js";
 
-const currentDate = dayjs();
-const fastdeliveryDate = currentDate.add(7,'day').format("dddd, MMMM D");
-const mediumdeliveryDate = currentDate.add(3,'day').format("dddd, MMMM D");
-const slowdeliveryDate = currentDate.add(1,'day').format("dddd, MMMM D");
-//console.log(dateFormat);
+
+// const mediumdeliveryDate = currentDate.add(3,'day').format("dddd, MMMM D");
+// const slowdeliveryDate = currentDate.add(1,'day').format("dddd, MMMM D");
+// //console.log(dateFormat);
 let allCartElements=``;
-
 
 
 cart.forEach((cartItem) => {
     //console.log(cartItem);
     const productId = cartItem.productId;
     var productDetails;
+    let deliveryDate;
+    const currentDate = dayjs();
+    checkoutOptions.forEach((options)=>{
+        if(cartItem.checkoutId === options.id){
+            deliveryDate = currentDate.add(options.deliveryDays,'day').format("dddd, MMMM D");
+        }
+    });
     products.forEach((product) => {
         if (productId === product.id) {
             productDetails = product;
@@ -24,7 +30,7 @@ cart.forEach((cartItem) => {
     const checkouthtml =
     `<div class="cart-item-container js-item-container-${productDetails.id}">
     <div class="delivery-date">
-        Delivery date: Tuesday, June 21
+        Delivery date: ${deliveryDate}
     </div>
 
     <div class="cart-item-details-grid">
@@ -52,50 +58,11 @@ cart.forEach((cartItem) => {
             </span>
         </div>
         </div>
-
         <div class="delivery-options">
         <div class="delivery-options-title">
             Choose a delivery option:
         </div>
-        <div class="delivery-option">
-            <input type="radio" checked
-            class="delivery-option-input"
-            name="delivery-option-${productId}">
-            <div>
-            <div class="delivery-option-date">
-                ${fastdeliveryDate}
-            </div>
-            <div class="delivery-option-price">
-                FREE Shipping
-            </div>
-            </div>
-        </div>
-        <div class="delivery-option">
-            <input type="radio"
-            class="delivery-option-input"
-            name="delivery-option-${productId}">
-            <div>
-            <div class="delivery-option-date">
-                ${mediumdeliveryDate}
-            </div>
-            <div class="delivery-option-price">
-                $4.99 - Shipping
-            </div>
-            </div>
-        </div>
-        <div class="delivery-option">
-            <input type="radio"
-            class="delivery-option-input"
-            name="delivery-option-${productId}">
-            <div>
-            <div class="delivery-option-date">
-                ${slowdeliveryDate}
-            </div>
-            <div class="delivery-option-price">
-                $9.99 - Shipping
-            </div>
-            </div>
-        </div>
+        ${showCheckoutOptions(productId,cartItem)}
         </div>
     </div>
     </div>`;
@@ -104,6 +71,32 @@ cart.forEach((cartItem) => {
 
 document.querySelector('.order-summary').innerHTML = allCartElements;
 updateCheckoutQuantity();
+
+
+function showCheckoutOptions(productId,cartItem){
+    let html=``;
+checkoutOptions.forEach((options)=>{
+    const currentDate = dayjs();
+    const ischecked = options.id===cartItem.checkoutId;
+    const deliveryDate = currentDate.add(options.deliveryDays,'day').format("dddd, MMMM D");
+    html += 
+        `<div class="delivery-option">
+            <input type="radio" ${ischecked?'checked':''}
+            class="delivery-option-input"
+            name="delivery-option-${productId}">
+            <div>
+            <div class="delivery-option-date">
+                ${deliveryDate}
+            </div>
+            <div class="delivery-option-price">
+                ${(options.priceCents===0)?'FREE':(options.priceCents/100)} Shipping
+            </div>
+            </div>
+        </div>`
+});
+return html;
+}
+
 
 document.querySelectorAll('.js-delete-quantity-link')
 .forEach((link)=>{
