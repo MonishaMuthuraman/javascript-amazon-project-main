@@ -78,4 +78,5 @@ export function updateQuantity(productId,newQuantity){
   SaveToStorage();
   calculateCartQuantity();
 }
+ 
 
