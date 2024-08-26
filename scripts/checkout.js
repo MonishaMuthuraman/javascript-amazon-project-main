@@ -8,10 +8,9 @@ import {checkoutOptions} from "./checkoutOption.js";
 // const mediumdeliveryDate = currentDate.add(3,'day').format("dddd, MMMM D");
 // const slowdeliveryDate = currentDate.add(1,'day').format("dddd, MMMM D");
 // //console.log(dateFormat);
+function rendercheckoutHtml(){
 let allCartElements=``;
 var deliveryDate;
-
-
 cart.forEach((cartItem) => {
     //console.log(cartItem);
     const productId = cartItem.productId;
@@ -29,7 +28,9 @@ cart.forEach((cartItem) => {
     });
     const checkouthtml =
     `<div class="cart-item-container js-item-container-${productDetails.id}">
-    ${displayDeliveryDate()}
+    <div class="delivery-date">
+        Delivery date: ${deliveryDate}
+    </div>
 
     <div class="cart-item-details-grid">
         <img class="product-image"
@@ -136,8 +137,7 @@ document.querySelector(".js-cart-quantity").innerHTML = `${quantity} items`;
 document.querySelectorAll('.js-delivery-options').forEach((element)=>
     {
         element.addEventListener('click', ()=>{
-            const deliveryOptionId = element.dataset.deliveryOptionId;
-            const productId = element.dataset.productId; 
+            const {productId,deliveryOptionId} = element.dataset; 
             cart.forEach((cartItem)=>{
               if(cartItem.productId === productId){
                   cartItem.checkoutId = deliveryOptionId;
@@ -146,23 +146,17 @@ document.querySelectorAll('.js-delivery-options').forEach((element)=>
           checkoutOptions.forEach((option)=>{
             if(deliveryOptionId === option.id){
                 updateDeliveryDate(option.deliveryDays);
+                rendercheckoutHtml();
             }
           });
-          displayDeliveryDate();
           SaveToStorage();
         });
     });
 
-export function updateDeliveryDate(daysnumber){
+function updateDeliveryDate(daysnumber){
     const currentDate = dayjs();
     deliveryDate = currentDate.add(daysnumber,'day').format("dddd, MMMM D");
 }
-
-
-function displayDeliveryDate(){
-    let deliveryDatehtml = 
-    `<div class="delivery-date">
-        Delivery date: ${deliveryDate}
-    </div>`
-    return deliveryDatehtml;
 }
+
+rendercheckoutHtml();
