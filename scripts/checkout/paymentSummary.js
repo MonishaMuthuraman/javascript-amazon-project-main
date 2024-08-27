@@ -8,7 +8,7 @@ const quantity = calculateCartQuantity();
 const totalprice = Number(calculatepaymentPrice());
 const shippingcharge = Number(calculateShipping());
 const priceWithShipping = Number(TotalBeforetax());
-
+const tax = Number(priceWithShipping*0.1);
 const paymentSummaryHTML = 
 `<div class="payment-summary-title">
             Order Summary
@@ -31,12 +31,12 @@ const paymentSummaryHTML =
 
           <div class="payment-summary-row">
             <div>Estimated tax (10%):</div>
-            <div class="payment-summary-money">$${formatCurrency(priceWithShipping*0.1)}</div>
+            <div class="payment-summary-money">$${formatCurrency(tax)}</div>
           </div>
 
           <div class="payment-summary-row total-row">
             <div>Order total:</div>
-            <div class="payment-summary-money">$${formatCurrency(priceWithShipping+(priceWithShipping*0.1))}</div>
+            <div class="payment-summary-money">$${formatCurrency(priceWithShipping+tax)}</div>
           </div>
 
           <button class="place-order-button button-primary">
