@@ -19,7 +19,7 @@ if(!cart){
 export function addToCart(productId){
     const timerList = {};
     let itemInCart = false;
-    let quantity = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
+    let quantity =1 || Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
     let checkoutId = '1';
     cart.forEach((item)=>{
       if(item.productId === productId){
