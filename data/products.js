@@ -1,3 +1,5 @@
+import {formatCurrency} from "../scripts/utils/money.js";
+
 class Product{
     id;
     image;
@@ -13,9 +15,18 @@ class Product{
       this.priceCents = productDetails.priceCents;
       this.keywords = productDetails.keywords;
   };
+
   showSizeChart(){
     return ``;
   };
+
+  starsurl(){
+    return `images/ratings/rating-${this.rating.stars*10}.png`;
+  };
+
+  showFormatCurrency(){
+    return formatCurrency(this.priceCents);
+  }
 };
 class Clothing extends Product{
   showSizeChart(){
@@ -691,6 +702,4 @@ export const products = [];
     products.push(new Product(productDetails));
   }
 });
-
-console.log(products);
 
