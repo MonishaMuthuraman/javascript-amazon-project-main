@@ -25,6 +25,7 @@ cart.forEach((cartItem) => {
     products.forEach((product) => {
         if (productId === product.id) {
             productDetails = product;
+            console.log(productDetails);
         }
     });
     const checkouthtml =

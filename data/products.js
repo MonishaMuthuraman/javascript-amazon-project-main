@@ -1,6 +1,8 @@
 import {formatCurrency} from "../scripts/utils/money.js";
-import {loadCart} from '../scripts/amazon.js';
 
+export var products=[];
+
+export function getProducts(func){
 class Product{
     id;
     image;
@@ -36,8 +38,6 @@ class Clothing extends Product{
 };
 
 const xhr = new XMLHttpRequest();
-export var products=[];
-
 xhr.addEventListener('load',()=>{
   const productsjson=JSON.parse(xhr.response);
   products = productsjson.map((productDetails)=>{
@@ -48,13 +48,13 @@ xhr.addEventListener('load',()=>{
       return new Product(productDetails);
     }
   });
-  loadCart();
+  func();
 });
 // console.log(products);
 xhr.open('GET','https://supersimplebackend.dev/products');
 xhr.send();
 
-
+}
 
 
 // export const products = [];

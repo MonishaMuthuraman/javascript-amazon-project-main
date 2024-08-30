@@ -1,9 +1,9 @@
 import {calculateCartQuantity,addToCart} from '../data/cart.js';
-import { products} from '../data/products.js';
+import { products, getProducts} from '../data/products.js';
 import {formatCurrency} from "./utils/money.js";
 
-
-export function loadCart(){
+getProducts(loadProducts);
+function loadProducts(){
 let allProducts = ""; 
 
 products.forEach((product)=>{
