@@ -11,11 +11,28 @@ import {paymentSummary} from "./checkout/paymentSummary.js";
 // console.log(xhr.response);
 
 
-new Promise((resolve)=>{
-    getProducts(()=>{
-        resolve();
-    })
-}).then(()=>{
-    rendercheckoutHtml();
-    paymentSummary();
-});
+// new Promise((resolve)=>{
+//     getProducts(()=>{
+//         resolve();
+//     })
+// }).then(()=>{
+//     rendercheckoutHtml();
+//     paymentSummary();
+// });
+
+// function getProductsPromise(){
+//     return new Promise((resolve)=>{
+//         getProducts(()=>{
+//             resolve();
+//         })
+//     })
+// };
+
+async function fetchData(){
+    await getProductsPromise();
+        rendercheckoutHtml();
+        paymentSummary();
+}
+
+fetchData();
+

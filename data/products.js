@@ -68,9 +68,9 @@ fetch("https://supersimplebackend.dev/products")
     else{
       return new Product(productDetails);
     }
-    
   });
   func();
+  //console.log(func);
   //console.log(response.json());
   // console.log(datas);
 })
@@ -743,5 +743,6 @@ fetch("https://supersimplebackend.dev/products")
 //     products.push(new Product(productDetails));
 //   }
 // });
+
 
 }
