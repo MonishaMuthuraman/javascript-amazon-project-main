@@ -20,13 +20,13 @@ import {paymentSummary} from "./checkout/paymentSummary.js";
 //     paymentSummary();
 // });
 
-// function getProductsPromise(){
-//     return new Promise((resolve)=>{
-//         getProducts(()=>{
-//             resolve();
-//         })
-//     })
-// };
+function getProductsPromise(){
+    return new Promise((resolve)=>{
+        getProducts(()=>{
+            resolve();
+        })
+    })
+};
 
 async function fetchData(){
     await getProductsPromise();
